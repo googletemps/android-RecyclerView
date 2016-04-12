@@ -19,6 +19,7 @@ package com.example.android.common.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.android.common.RVApplication;
 import com.example.android.common.logger.Log;
 import com.example.android.common.logger.LogWrapper;
 
@@ -48,5 +49,11 @@ public class SampleActivityBase extends AppCompatActivity {
         Log.setLogNode(logWrapper);
 
         Log.i(TAG, "Ready");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RVApplication.getRefWatcher().watch(this);
     }
 }

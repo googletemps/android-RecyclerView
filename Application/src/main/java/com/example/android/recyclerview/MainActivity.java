@@ -42,6 +42,7 @@ public class MainActivity extends SampleActivityBase {
 
     // Whether the Log Fragment is currently shown
     private boolean mLogShown;
+    private MessageOnlyLogFilter msgFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class MainActivity extends SampleActivityBase {
         Log.setLogNode(logWrapper);
 
         // Filter strips out everything except the message text.
-        MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
+        msgFilter = new MessageOnlyLogFilter();
         logWrapper.setNext(msgFilter);
 
         // On screen logging via a fragment with a TextView.
@@ -106,5 +107,11 @@ public class MainActivity extends SampleActivityBase {
         msgFilter.setNext(logFragment.getLogView());
 
         Log.i(TAG, "Ready");
+    }
+
+    @Override
+    protected void onDestroy() {
+        msgFilter.setNext(null);
+        super.onDestroy();
     }
 }
