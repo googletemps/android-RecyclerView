@@ -150,6 +150,13 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRecyclerView.setAdapter(null);
+        mRecyclerView.removeAllViews();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         RVApplication.getRefWatcher().watch(this);
